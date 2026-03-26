@@ -70,3 +70,41 @@ function submitAll(){
     show("section13");
   });
 }
+
+function testSubmit(){
+
+  // 模擬使用者答案
+  let testAnswers = {
+    "Q1-1": "A1",
+    "Q9-1": "I1"
+  };
+
+  let resultKey = "I1";
+
+  fetch("你的AppsScript網址", {
+    method:"POST",
+    body: JSON.stringify({
+      answers: testAnswers,
+      resultKey: resultKey
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+
+    console.log("回傳資料：", data);
+
+    let html = "<h3>推薦結果</h3>";
+
+    data.forEach(item=>{
+      html += `
+        <div>
+          <h4>${item.name}</h4>
+          <p>${item.desc}</p>
+          <a href="${item.link}" target="_blank">查看</a>
+        </div>
+      `;
+    });
+
+    document.body.innerHTML += html;
+  });
+}
