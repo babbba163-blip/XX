@@ -55,7 +55,7 @@ function selectResult(val){
 
 // 提交到 Apps Script 並顯示推薦
 function submitAll(){
-  fetch("👉你的AppsScript網址", {
+  fetch("https://script.google.com/macros/s/AKfycbz4rjHIbDIfY-udFz56U_kJ9r6pgi4a8fiGuqKWxq6YRUpe_UawhsqAXOJirrNMnJ0X/exec", {
     method:"POST",
     body:JSON.stringify({answers, resultKey})
   })
