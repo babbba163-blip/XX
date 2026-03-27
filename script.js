@@ -110,7 +110,7 @@ createButtons("section1_3","您過去有相關的經驗嗎？", [
 ]);
 
 // 第二區段
-createButtons("section2","承上，您熟悉的是「勞力型」，請問是什麼職業呢?", [
+createButtons("section2","承上，您熟悉的是『勞力型』，請問是什麼職業呢?", [
   {q:"Q2-1", label:"粗工", next:"section5"},
   {q:"Q2-1", label:"貨運(送貨)", next:"section5"},
   {q:"Q2-1", label:"園藝修剪", next:"section5"},
@@ -119,7 +119,7 @@ createButtons("section2","承上，您熟悉的是「勞力型」，請問是什
 ]);
 
 // 第三區段
-createButtons("section3","承上，您熟悉的是「靜態型」，請問是什麼職業呢?", [
+createButtons("section3","承上，您熟悉的是『靜態型』，請問是什麼職業呢?", [
   {q:"Q3-1", label:"行政人員", next:"section4"},
   {q:"Q3-1", label:"會計 / 文書", next:"section4"},
   {q:"Q3-1", label:"門市 / 櫃台", next:"section4"},
@@ -149,7 +149,7 @@ createButtons("section6","期望的職類", [
 ]);
 
 // 第七區段
-createButtons("section7","承上，您期望的是「勞力型」，請問是什麼職業呢?", [
+createButtons("section7","承上，您期望的是『勞力型』，請問是什麼職業呢?", [
   {q:"Q9-1", label:"粗工", next:"section11"},
   {q:"Q9-1", label:"貨運(送貨)", next:"section11"},
   {q:"Q9-1", label:"園藝修剪", next:"section11"},
@@ -158,7 +158,7 @@ createButtons("section7","承上，您期望的是「勞力型」，請問是什
 ]);
 
 // 第八區段
-createButtons("section8","承上，您期望的是「靜態型」，請問是什麼職業呢?", [
+createButtons("section8","承上，您期望的是『靜態型』，請問是什麼職業呢?", [
   {q:"Q10-1", label:"行政人員", next:"section11"},
   {q:"Q10-1", label:"會計 / 文書", next:"section11"},
   {q:"Q10-1", label:"門市 / 櫃台", next:"section11"},
