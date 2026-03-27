@@ -298,16 +298,28 @@ createButtons("section10","您希望怎麼接受服務呢?", [
   {q:"Q12-1", label:"預約聯絡", next:"section11_2"}
 ]);
 
-// 第十一區段（簡答題）
-createInput("section11_2","Q13-1", "section11_3");
-createInput("section11_3","Q14-1", "section11_4");
-createInput("section11_4","Q15-1", "section11_5");
-createInput("section11_5","Q16-1", "section13");
+// ----------------------------
+// 第11區段（整合選擇題+簡答題）
+// ----------------------------
+createSectionWithComplete("section11", [
+  {id:"Q13-1", text:"Q13-1 請選擇您偏好的方式", type:"choice", options:[
+    {label:"選項1"}, {label:"選項2"}
+  ]},
+  {id:"Q14-1", text:"Q14-1 請填寫您的想法", type:"input"},
+  {id:"Q15-1", text:"Q15-1 補充說明", type:"input"},
+  {id:"Q16-1", text:"Q16-1 其他意見", type:"input"}
+], "section12");
 
-// 第十二區段（簡答題）
-createInput("section12_2","Q17-1", "section12_3");
-createInput("section12_3","Q18-1", "section12_4");
-createInput("section12_4","Q19-1", "section13");
+// ----------------------------
+// 第12區段（整合選擇題+簡答題）
+// ----------------------------
+createSectionWithComplete("section12", [
+  {id:"Q17-1", text:"Q17-1 請選擇您偏好的方式", type:"choice", options:[
+    {label:"選項1"}, {label:"選項2"}
+  ]},
+  {id:"Q18-1", text:"Q18-1 請填寫您的想法", type:"input"},
+  {id:"Q19-1", text:"Q19-1 補充說明", type:"input"}
+], "section13");
 
 // 第十三區段（推薦結果顯示前段）
 createButtons("section13","推薦結果", [
