@@ -78,124 +78,7 @@ function createInput(sectionId, question, next){
   container.appendChild(div);
 }
 
-function createSection11() {
-  let container = document.getElementById("surveyContainer");
-  
-  // 區段容器
-  let div = document.createElement("div");
-  div.id = "section11";
-  div.className = "section";
-  div.style.display = "none"; // 預設隱藏
-  container.appendChild(div);
-  
-  // 題目
-  let h3 = document.createElement("h3");
-  h3.innerText = "Q13-1 請選擇您偏好的方式";
-  div.appendChild(h3);
 
-  // 選項按鈕 (這裡不用直接跳下一題，全部選完後用完成按鈕送出)
-  const options = [
-    {q:"Q13-1", label:"選項1"},
-    {q:"Q13-1", label:"選項2"}
-  ];
-  
-  options.forEach(opt => {
-    let btn = document.createElement("button");
-    btn.innerText = opt.label;
-    btn.style.backgroundColor = colors[colorIndex % colors.length];
-    colorIndex++;
-    
-    btn.onclick = () => {
-      answers[opt.q] = opt.label; // 儲存選擇
-      // 標記選取樣式
-      options.forEach(b => {
-        if (b !== opt) {
-          b.selectedBtn && (b.selectedBtn.style.border = "");
-        }
-      });
-      btn.style.border = "3px solid black";
-      opt.selectedBtn = btn; 
-    };
-    
-    div.appendChild(btn);
-  });
-
-  // 完成按鈕
-  let finishBtn = document.createElement("button");
-  finishBtn.innerText = "完成";
-  finishBtn.style.marginTop = "12px";
-  finishBtn.style.padding = "8px 20px";
-  finishBtn.style.backgroundColor = "#aaa";
-  
-  finishBtn.onclick = () => {
-    // 檢查是否有選
-    if (!answers["Q13-1"]) {
-      alert("此題為必填，請先選擇一個選項！");
-      return;
-    }
-    // 隱藏當前區段
-    div.style.display = "none";
-    // 顯示下一個區段（簡答題）
-    document.getElementById("section11_2").style.display = "block";
-  };
-  
-  div.appendChild(finishBtn);
-
-  function createSection12() {
-  let container = document.getElementById("surveyContainer");
-
-  let div = document.createElement("div");
-  div.id = "section12";
-  div.className = "section";
-  div.style.display = "none";
-  container.appendChild(div);
-
-  let h3 = document.createElement("h3");
-  h3.innerText = "Q17-1 請選擇您偏好的方式";
-  div.appendChild(h3);
-
-  const options = [
-    {q:"Q17-1", label:"選項1"},
-    {q:"Q17-1", label:"選項2"}
-  ];
-
-  options.forEach(opt => {
-    let btn = document.createElement("button");
-    btn.innerText = opt.label;
-    btn.style.backgroundColor = colors[colorIndex % colors.length];
-    colorIndex++;
-
-    btn.onclick = () => {
-      answers[opt.q] = opt.label;
-      options.forEach(b => {
-        if (b !== opt) {
-          b.selectedBtn && (b.selectedBtn.style.border = "");
-        }
-      });
-      btn.style.border = "3px solid black";
-      opt.selectedBtn = btn; 
-    };
-
-    div.appendChild(btn);
-  });
-
-  let finishBtn = document.createElement("button");
-  finishBtn.innerText = "完成";
-  finishBtn.style.marginTop = "12px";
-  finishBtn.style.padding = "8px 20px";
-  finishBtn.style.backgroundColor = "#aaa";
-
-  finishBtn.onclick = () => {
-    if (!answers["Q17-1"]) {
-      alert("此題為必填，請先選擇一個選項！");
-      return;
-    }
-    div.style.display = "none";
-    document.getElementById("section12_2").style.display = "block"; // 下一簡答區段
-  };
-
-  div.appendChild(finishBtn);
-}
   
 // ----------------------------
 // 建立 14 區段問卷（按你的架構）
@@ -375,7 +258,7 @@ createButtons("section9","期望的通勤距離", [
 
 // 第十區段
 createButtons("section10","您希望怎麼接受服務呢?", [
-  {q:"Q12-1", label:"直接前往就業中心", next:"section12_2"},
+  {q:"Q12-1", label:"直接前往就業中心", next:"section12"},
   {q:"Q12-1", label:"預約聯絡", next:"section11_2"}
 ]);
 
