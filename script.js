@@ -318,7 +318,7 @@ createButtons("section13","推薦結果", [
 // 送出到 Apps Script
 // ----------------------------
 function submitAll(){
-  fetch("👉你的AppsScript網址", {
+  fetch("https://script.google.com/macros/s/AKfycbwic8nhb3udn2njA307BkVdelUJOdQQi-gEkTXj8kdLo5yLM_5MIKLHJo21s8caYHa0/exec", {
     method:"POST",
     body: JSON.stringify(answers)
   })
