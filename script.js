@@ -199,7 +199,7 @@ createButtons("section13","推薦結果", [
 // 送出到 Apps Script
 // ----------------------------
 function submitAll(){
-  fetch("https://script.google.com/macros/s/AKfycbz4rjHIbDIfY-udFz56U_kJ9r6pgi4a8fiGuqKWxq6YRUpe_UawhsqAXOJirrNMnJ0X/exec", {
+  fetch("👉你的AppsScript網址", {
     method:"POST",
     body: JSON.stringify(answers)
   })
@@ -213,20 +213,14 @@ function submitAll(){
         <a href="${item.link}" target="_blank">查看</a>
       </div>`;
     });
-
-    // 加一個「下一步」按鈕
-    html += `<button id="nextAfterRecommend" style="margin-top:12px; padding:10px 20px;">下一步</button>`;
+    html += <button id="nextAfterRecommend" style="margin-top:12px; padding:10px 20px;">下一步</button>;
     document.getElementById("result").innerHTML = html;
     document.getElementById("result").style.display = "block";
     document.getElementById("submitBtn").style.display = "none";
 
-    // 綁定按鈕事件
     document.getElementById("nextAfterRecommend").onclick = ()=>{
       document.getElementById("result").style.display = "none";
-      // 這裡可以決定下一步要去哪
-      // 例如結束問卷就不做事，或開啟下一區段：
-      // document.getElementById("section12_2").style.display = "block";
-      alert("你可以設定下一區段或結束問卷！");
+      alert("問卷完成，謝謝您的填寫！");
     };
   });
 }
