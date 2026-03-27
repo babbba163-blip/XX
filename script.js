@@ -84,7 +84,7 @@ function createInput(sectionId, question, next){
 
 // 第一區段
 createButtons("section1","首先，讓我們更認識您！請問您的年齡", [
-  {q:"Q1-1", label:"18-29歲", next:"section1_2"},
+  {q:"18-29歲", label:"Q1-1", next:"section1_2"},
   {q:"Q1-1", label:"30-44歲", next:"section1_2"},
   {q:"Q1-1", label:"45-64歲", next:"section1_2"},
   {q:"Q1-1", label:"65歲以上", next:"section1_2"}
