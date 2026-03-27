@@ -82,6 +82,14 @@ function createInput(sectionId, question, next){
 // 建立 14 區段問卷（按你的架構）
 // ----------------------------
 
+
+createButtons("section1","測試題目", [
+  {q:"Q1-1", label:"選項1", next:"section1_2"},
+  {q:"Q1-1", label:"選項2", next:"section1_2"},
+  {q:"Q1-1", label:"選項3", next:"section1_2"},
+  {q:"Q1-1", label:"選項4", next:"section1_2"}
+]);
+
 // 第一區段
 createButtons("section1","首先，讓我們更認識您！請問您的年齡", [
   {q:"Q1-1", label:"18-29歲", next:"section1_2"},
