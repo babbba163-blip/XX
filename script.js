@@ -2,7 +2,7 @@
 let answers = {};
 
 // 顏色循環：紅、橙、黃、綠、青、藍、紫
-const colors = ["#FFC0C0","#FFD580","#FFFF80","#B0FF80","#80FFD0","#80C0FF","#D580FF"];
+const colors = ["#FFC0C0","#FFD580","#B0FF80","#80FFD0","#80C0FF","#D580FF"];
 let colorIndex = 0;
 
 // 創建按鈕區段
@@ -83,99 +83,99 @@ function createInput(sectionId, question, next){
 // ----------------------------
 
 // 第一區段
-createButtons("section1","Q1-1", [
-  {q:"Q1-1", label:"A1", next:"section1_2"},
-  {q:"Q1-1", label:"A2", next:"section1_2"},
-  {q:"Q1-1", label:"A3", next:"section1_2"},
-  {q:"Q1-1", label:"A4", next:"section1_2"}
+createButtons("section1","首先，讓我們更認識您！請問您的年齡", [
+  {q:"Q1-1", label:"18-29歲", next:"section1_2"},
+  {q:"Q1-1", label:"30-44歲", next:"section1_2"},
+  {q:"Q1-1", label:"45-64歲", next:"section1_2"},
+  {q:"Q1-1", label:"65歲以上", next:"section1_2"}
 ]);
 
-createButtons("section1_2","Q1-2", [
-  {q:"Q1-2", label:"B1", next:"section1_3"},
-  {q:"Q1-2", label:"B2", next:"section1_3"},
-  {q:"Q1-2", label:"B3", next:"section1_3"},
-  {q:"Q1-2", label:"B4", next:"section1_3"},
-  {q:"Q1-2", label:"B5", next:"section1_3"},
-  {q:"Q1-2", label:"B6", next:"section1_3"},
-  {q:"Q1-2", label:"B7", next:"section1_3"},
-  {q:"Q1-2", label:"B8", next:"section1_3"},
-  {q:"Q1-2", label:"B9", next:"section1_3"}
+createButtons("section1_2","接下來，讓我知道您的生活圈", [
+  {q:"Q1-2", label:"虎尾鎮", next:"section1_3"},
+  {q:"Q1-2", label:"土庫鎮", next:"section1_3"},
+  {q:"Q1-2", label:"元長鄉", next:"section1_3"},
+  {q:"Q1-2", label:"麥寮鄉", next:"section1_3"},
+  {q:"Q1-2", label:"台西鄉", next:"section1_3"},
+  {q:"Q1-2", label:"褒忠鄉", next:"section1_3"},
+  {q:"Q1-2", label:"四湖鄉", next:"section1_3"},
+  {q:"Q1-2", label:"口湖鄉", next:"section1_3"},
+  {q:"Q1-2", label:"其他", next:"section1_3"}
 ]);
 
-createButtons("section1_3","Q1-3", [
-  {q:"Q1-3", label:"C1", next:"section2"},
-  {q:"Q1-3", label:"C2", next:"section3"},
-  {q:"Q1-3", label:"C3", next:"section4"}
+createButtons("section1_3","您過去有相關的經驗嗎？", [
+  {q:"Q1-3", label:"勞力型", next:"section2"},
+  {q:"Q1-3", label:"靜態型", next:"section3"},
+  {q:"Q1-3", label:"潛力型 (沒有工作經驗 / 都不太熟悉)", next:"section4"}
 ]);
 
 // 第二區段
-createButtons("section2","Q2-1", [
-  {q:"Q2-1", label:"D1", next:"section5"},
-  {q:"Q2-1", label:"D2", next:"section5"},
-  {q:"Q2-1", label:"D3", next:"section5"},
-  {q:"Q2-1", label:"D4", next:"section5"},
-  {q:"Q2-1", label:"D5", next:"section5"}
+createButtons("section2","承上，您熟悉的是"勞力型"，請問是什麼職業呢?", [
+  {q:"Q2-1", label:"粗工", next:"section5"},
+  {q:"Q2-1", label:"貨運(送貨)", next:"section5"},
+  {q:"Q2-1", label:"園藝修剪", next:"section5"},
+  {q:"Q2-1", label:"賣場人員", next:"section5"},
+  {q:"Q2-1", label:"不在選項裡", next:"section5"}
 ]);
 
 // 第三區段
-createButtons("section3","Q3-1", [
-  {q:"Q3-1", label:"E1", next:"section4"},
-  {q:"Q3-1", label:"E2", next:"section4"},
-  {q:"Q3-1", label:"E3", next:"section4"},
-  {q:"Q3-1", label:"E4", next:"section4"},
-  {q:"Q3-1", label:"E5", next:"section4"}
+createButtons("section3","承上，您熟悉的是"靜態型"，請問是什麼職業呢?", [
+  {q:"Q3-1", label:"行政人員", next:"section4"},
+  {q:"Q3-1", label:"會計 / 文書", next:"section4"},
+  {q:"Q3-1", label:"門市 / 櫃台", next:"section4"},
+  {q:"Q3-1", label:"其他專業技術型", next:"section4"},
+  {q:"Q3-1", label:"其他", next:"section4"}
 ]);
 
 // 第四區段
-createButtons("section4","Q4-1", [
-  {q:"Q4-1", label:"F1", next:"section5"},
-  {q:"Q4-1", label:"F2", next:"section6"}
+createButtons("section4","接下來您比較想做什麼？", [
+  {q:"Q4-1", label:"做「類似之前的工作」", next:"section5"},
+  {q:"Q4-1", label:"想試試「新的工作」", next:"section6"}
 ]);
 
 // 第五區段
-createButtons("section5","Q5-1", [
-  {q:"Q5-1", label:"G1", next:"section9"},
-  {q:"Q5-1", label:"G2", next:"section9"},
-  {q:"Q5-1", label:"G3", next:"section9"},
-  {q:"Q5-1", label:"G4", next:"section9"},
-  {q:"Q5-1", label:"G5", next:"section9"}
+createButtons("section5","可上班時段（可複選）", [
+  {q:"Q5-1", label:"日班（08:00–17:00）", next:"section9"},
+  {q:"Q5-1", label:"早班（07:00–15:00）", next:"section9"},
+  {q:"Q5-1", label:"午晚班（15:00–23:00）", next:"section9"},
+  {q:"Q5-1", label:"夜班（23:00–07:00）", next:"section9"},
+  {q:"Q5-1", label:"都可以 (或可接受輪班)", next:"section9"}
 ]);
 
 // 第六區段
-createButtons("section6","Q6-1", [
-  {q:"Q6-1", label:"H1", next:"section7"},
-  {q:"Q6-1", label:"H2", next:"section10"}
+createButtons("section6","期望的職類", [
+  {q:"Q6-1", label:"勞力型", next:"section7"},
+  {q:"Q6-1", label:"靜態型", next:"section10"}
 ]);
 
 // 第七區段
-createButtons("section7","Q9-1", [
-  {q:"Q9-1", label:"I1", next:"section11"},
-  {q:"Q9-1", label:"I2", next:"section11"},
-  {q:"Q9-1", label:"I3", next:"section11"},
-  {q:"Q9-1", label:"I4", next:"section11"},
-  {q:"Q9-1", label:"I5", next:"section11"}
+createButtons("section7","承上，您期望的是"勞力型"，請問是什麼職業呢?", [
+  {q:"Q9-1", label:"粗工", next:"section11"},
+  {q:"Q9-1", label:"貨運(送貨)", next:"section11"},
+  {q:"Q9-1", label:"園藝修剪", next:"section11"},
+  {q:"Q9-1", label:"賣場人員", next:"section11"},
+  {q:"Q9-1", label:"不在選項裡", next:"section11"}
 ]);
 
 // 第八區段
-createButtons("section8","Q10-1", [
-  {q:"Q10-1", label:"J1", next:"section11"},
-  {q:"Q10-1", label:"J2", next:"section11"},
-  {q:"Q10-1", label:"J3", next:"section11"},
-  {q:"Q10-1", label:"J4", next:"section11"},
-  {q:"Q10-1", label:"J5", next:"section11"}
+createButtons("section8","承上，您期望的是"靜態型"，請問是什麼職業呢?", [
+  {q:"Q10-1", label:"行政人員", next:"section11"},
+  {q:"Q10-1", label:"會計 / 文書", next:"section11"},
+  {q:"Q10-1", label:"門市 / 櫃台", next:"section11"},
+  {q:"Q10-1", label:"其他專業技術型", next:"section11"},
+  {q:"Q10-1", label:"其他", next:"section11"}
 ]);
 
 // 第九區段
-createButtons("section9","Q11-1", [
-  {q:"Q11-1", label:"K1", next:"section12"},
-  {q:"Q11-1", label:"K2", next:"section12"},
-  {q:"Q11-1", label:"K3", next:"section12"}
+createButtons("section9","期望的通勤距離", [
+  {q:"Q11-1", label:"住家附近", next:"section12"},
+  {q:"Q11-1", label:"同鄉鎮", next:"section12"},
+  {q:"Q11-1", label:"可跨鄉鎮", next:"section12"}
 ]);
 
 // 第十區段
-createButtons("section10","Q12-1", [
-  {q:"Q12-1", label:"L1", next:"section12_2"},
-  {q:"Q12-1", label:"L2", next:"section11_2"}
+createButtons("section10","您希望怎麼接受服務呢?", [
+  {q:"Q12-1", label:"直接前往就業中心", next:"section12_2"},
+  {q:"Q12-1", label:"預約聯絡", next:"section11_2"}
 ]);
 
 // 第十一區段（簡答題）
@@ -198,7 +198,7 @@ createButtons("section13","推薦結果", [
 // 送出到 Apps Script
 // ----------------------------
 function submitAll(){
-  fetch("你的AppsScript網址", {
+  fetch("https://script.google.com/macros/s/AKfycbz4rjHIbDIfY-udFz56U_kJ9r6pgi4a8fiGuqKWxq6YRUpe_UawhsqAXOJirrNMnJ0X/exec", {
     method:"POST",
     body: JSON.stringify(answers)
   })
