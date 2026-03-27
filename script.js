@@ -202,6 +202,87 @@ function createSection11() {
 // ----------------------------
 
 
+function createSectionWithComplete(sectionId, questions, nextSectionId) {
+  const container = document.getElementById("surveyContainer");
+
+  const div = document.createElement("div");
+  div.id = sectionId;
+  div.className = "section";
+  div.style.display = "none";
+  container.appendChild(div);
+
+  let questionStates = [];
+
+  questions.forEach(q => {
+    let h3 = document.createElement("h3");
+    h3.innerText = q.text;
+    div.appendChild(h3);
+
+    if(q.type === "choice") {
+      let answered = false;
+
+      q.options.forEach(opt => {
+        let btn = document.createElement("button");
+        btn.innerText = opt.label;
+        btn.style.backgroundColor = colors[colorIndex % colors.length];
+
+        btn.onclick = () => {
+          answers[q.id] = opt.label;
+          answered = true;
+
+          // 清除其他選取框
+          q.options.forEach(o => o.btn && (o.btn.style.border = ""));
+          btn.style.border = "3px solid black";
+          opt.btn = btn;
+
+          checkComplete();
+        };
+
+        div.appendChild(btn);
+      });
+
+      questionStates.push(() => answered);
+    }
+
+    if(q.type === "input") {
+      let input = document.createElement("textarea");
+      input.rows = 3;
+
+      input.oninput = () => {
+        answers[q.id] = input.value;
+        checkComplete();
+      };
+
+      div.appendChild(input);
+
+      questionStates.push(() => input.value.trim() !== "");
+    }
+  });
+
+  // 完成按鈕
+  let finishBtn = document.createElement("button");
+  finishBtn.innerText = "完成";
+  finishBtn.style.marginTop = "12px";
+  finishBtn.style.padding = "8px 20px";
+  finishBtn.style.backgroundColor = "#aaa";
+  finishBtn.disabled = true;
+
+  div.appendChild(finishBtn);
+
+  function checkComplete() {
+    let allDone = questionStates.every(fn => fn());
+
+    finishBtn.disabled = !allDone;
+    finishBtn.style.backgroundColor = allDone ? "#88ccff" : "#aaa";
+  }
+
+  finishBtn.onclick = () => {
+    div.style.display = "none";
+    document.getElementById(nextSectionId).style.display = "block";
+  };
+}
+  
+
 // 第一區段
 createButtons("section1","首先，讓我們更認識您！請問您的年齡", [
   {q:"Q1-1", label:"18-29歲", next:"section1_2"},
@@ -344,7 +425,7 @@ function submitAll(){
         <a href="${item.link}" target="_blank">查看</a>
       </div>`;
     });
-    html += <button id="nextAfterRecommend" style="margin-top:12px; padding:10px 20px;">下一步</button>;
+    html += `<button id="nextAfterRecommend" style="margin-top:12px; padding:10px 20px;">下一步</button>`;
     document.getElementById("result").innerHTML = html;
     document.getElementById("result").style.display = "block";
     document.getElementById("submitBtn").style.display = "none";
