@@ -1,44 +1,42 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>AI放大鏡x就業服務</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-}
-button {
-  padding: 12px 24px;
-  margin: 6px;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-input, textarea {
-  display:block;
-  margin: 6px 0;
-  padding: 6px;
-  width: 300px;
-}
-.section {
-  margin-bottom: 20px;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>測試 CORS fetch</title>
 </head>
 <body>
+  <button id="getBtn">GET 測試</button>
+  <button id="postBtn">POST 測試</button>
 
-<h2>就業服務</h2>
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxTUj0xTHEbYnPwD8CbZ0t53EGfnL3Td27tXjm0RTmDC3DFahssY3zFBUzXrMAfKar/exec";
 
-<!-- 區段容器 -->
-<div id="surveyContainer"></div>
+    // GET 請求
+    document.getElementById("getBtn").addEventListener("click", async () => {
+      try {
+        const res = await fetch(https://script.google.com/macros/s/AKfycbwxTUj0xTHEbYnPwD8CbZ0t53EGfnL3Td27tXjm0RTmDC3DFahssY3zFBUzXrMAfKar/exec);
+        const data = await res.json();
+        console.log("GET 回傳：", data);
+      } catch (err) {
+        console.error("GET 失敗：", err);
+      }
+    });
 
-<!-- 完成送出按鈕 -->
-<button id="submitBtn" style="display:none" onclick="submitAll()">完成</button>
-<!-- 顯示推薦結果 -->
-<div id="result" style="display:none"></div>
-
-<script src="script.js" defer></script>
+    // POST 請求
+    document.getElementById("postBtn").addEventListener("click", async () => {
+      try {
+        const payload = { name: "瞬", action: "測試" };
+        const res = await fetch(https://script.google.com/macros/s/AKfycbwxTUj0xTHEbYnPwD8CbZ0t53EGfnL3Td27tXjm0RTmDC3DFahssY3zFBUzXrMAfKar/exec, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        console.log("POST 回傳：", data);
+      } catch (err) {
+        console.error("POST 失敗：", err);
+      }
+    });
+  </script>
 </body>
 </html>
