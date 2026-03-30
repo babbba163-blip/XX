@@ -151,7 +151,7 @@ function submitAll(){
 
   console.log("送出資料", answers);
 
-  fetch("https://script.google.com/macros/s/AKfycbwic8nhb3udn2njA307BkVdelUJOdQQi-gEkTXj8kdLo5yLM_5MIKLHJo21s8caYHa0/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbxQoOOXWvr2KFINWA0EVdD7nsQ0xMSndmkUMBkYB0nO3YeGO3q4ARzHIXyEb7YMzEsU/exec", {
     method:"POST",
     headers:{
       "Content-Type":"application/json"
