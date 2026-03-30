@@ -171,6 +171,8 @@ function submitAll(){
 // 問卷流程
 // ----------------------------
 
+
+window.onload = function(){
 // 1
 createButtons("section1","請問您的年齡", [
   {q:"Q1-1", label:"18-29歲", next:"section1_2"},
@@ -272,3 +274,4 @@ createButtons("section13","完成", [
     action: submitAll
   }
 ]);
+};
