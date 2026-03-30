@@ -1,3 +1,5 @@
+console.log("JS有執行");
+
 // 全域儲存答案
 let answers = {};
 
