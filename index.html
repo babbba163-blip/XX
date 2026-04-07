@@ -2,19 +2,22 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>方案A 進階版問卷</title>
+<title>方案A 完整問卷</title>
 <style>
-button { margin: 5px; }
-#question-container { margin-bottom: 20px; }
-#result, #summary, #job-list { margin-top: 20px; }
+  body { margin:0; padding:0; font-family: Arial; }
+  #question-container { position:relative; width:100%; height:100vh; }
+  button { cursor:pointer; }
+  #user-info { display:none; margin-top:20px; }
+  #summary, #job-list { margin-top:20px; }
+  #youtube-placeholder { margin-top:20px; }
+  input { margin:5px 0; padding:5px; font-size:16px; width:200px; }
 </style>
 </head>
 <body>
 
-<h2 id="question-title">請回答以下問題：</h2>
 <div id="question-container"></div>
 
-<div id="user-info" style="display:none;">
+<div id="user-info">
   <h3>請填寫資料</h3>
   <input id="name" placeholder="姓名"><br>
   <input id="phone" placeholder="電話"><br>
@@ -24,7 +27,6 @@ button { margin: 5px; }
 <div id="summary"></div>
 <div id="job-list"></div>
 <div id="youtube-placeholder">
-  <!-- 影片播放器位置預留 -->
   <p>影片播放區塊 (待嵌入 YouTube)</p>
 </div>
 
@@ -50,23 +52,49 @@ const questions = [
 let currentQuestion = 0;
 let answers = {};
 
-// ======= 顯示題目 =======
-function showQuestion() {
+// ======= 顯示題目 (響應式按鈕版) =======
+function showQuestionResponsive() {
   const q = questions[currentQuestion];
   const container = document.getElementById("question-container");
-  document.getElementById("question-title").innerText = q.text;
   container.innerHTML = "";
 
-  q.options.forEach(opt => {
+  // Title 區塊
+  const titleHeight = 200;
+  const title = document.createElement("div");
+  title.innerText = q.text;
+  title.style.position = "absolute";
+  title.style.top = "0px";
+  title.style.left = "50%";
+  title.style.transform = "translateX(-50%)";
+  title.style.height = titleHeight + "px";
+  title.style.width = "90%";
+  title.style.textAlign = "center";
+  title.style.fontSize = "24px";
+  container.appendChild(title);
+
+  // 按鈕位置計算
+  const paddingX = 100;  // 左右邊距
+  const startY = titleHeight + 150; // 從頂部算起
+  const endY = window.innerHeight - 100; // 底部留白100
+  const optionCount = q.options.length;
+  const optionHeight = (endY - startY)/optionCount;
+
+  q.options.forEach((opt, i) => {
     const btn = document.createElement("button");
     btn.innerText = opt;
+    btn.style.position = "absolute";
+    btn.style.left = paddingX + "px";
+    btn.style.top = startY + i*optionHeight + "px";
+    btn.style.width = (window.innerWidth - 2*paddingX) + "px";
+    btn.style.height = optionHeight + "px";
+    btn.style.fontSize = "18px";
     btn.onclick = () => {
       answers[q.key] = opt;
       currentQuestion++;
       if(currentQuestion < questions.length) {
-        showQuestion();
+        showQuestionResponsive();
       } else {
-        document.getElementById("question-container").style.display = "none";
+        container.style.display = "none";
         document.getElementById("user-info").style.display = "block";
         showSummary();
       }
@@ -88,27 +116,17 @@ function showSummary() {
   `;
 }
 
-// ======= 資料庫職缺範例 =======
-const jobData = [
-  {category:"行政", company:"魚鄉有限公司", position:"行政人員", salary:"30000~32000", location:"麥寮鄉"},
-  {category:"行政", company:"恣肆有限公司", position:"行政助理", salary:"29500~34000", location:"台西鄉"},
-  {category:"勞力", company:"大力工程", position:"工地助手", salary:"28000~30000", location:"虎尾鎮"}
-];
-
-// ======= 顯示對應職缺 =======
-function showJobList() {
+// ======= 顯示職缺 (由 Web App 提供) =======
+function showJobListDynamic(jobArray) {
   const jobDiv = document.getElementById("job-list");
-  const category = answers.static;
-  const filtered = jobData.filter(j => j.category === category).slice(0,3);
-
-  if(filtered.length === 0) {
+  if(jobArray.length === 0){
     jobDiv.innerHTML = "<p>目前沒有相關職缺</p>";
     return;
   }
 
-  let html = `<h3>以下是您感興趣的 "${category}" 的相關職缺：</h3><ol>`;
-  filtered.forEach(j => {
-    html += `<li>${j.company}: ${j.position}<br>月薪 ${j.salary}, ${j.location}</li>`;
+  let html = <h3>以下是您感興趣的 "${answers.static}" 的相關職缺：</h3><ol>;
+  jobArray.slice(0,3).forEach(j => {
+    html += <li>${j.company}: ${j.position}<br>月薪 ${j.salary}, ${j.location}</li>;
   });
   html += "</ol>";
   jobDiv.innerHTML = html;
@@ -131,7 +149,7 @@ document.getElementById("submit").addEventListener("click", async () => {
     const result = await response.json();
     if(result.status === "success") {
       document.getElementById("user-info").innerHTML = "<p>資料已送出成功！</p>";
-      showJobList(); // 送出成功後顯示職缺
+      showJobListDynamic(result.data); // 使用 Web App 回傳資料
     } else {
       document.getElementById("user-info").innerHTML = "<p>送出失敗：" + result.message + "</p>";
     }
@@ -142,7 +160,12 @@ document.getElementById("submit").addEventListener("click", async () => {
 
 // ======= 啟動問卷 =======
 document.addEventListener("DOMContentLoaded", () => {
-  showQuestion();
+  showQuestionResponsive();
+});
+
+// ======= 畫面大小改變時自動調整按鈕 =======
+window.addEventListener("resize", () => {
+  if(currentQuestion < questions.length) showQuestionResponsive();
 });
 </script>
 
