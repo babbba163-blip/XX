@@ -2,166 +2,86 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>方案A 完整問卷</title>
+<title>問卷測試</title>
 <style>
-  body { margin:0; padding:0; font-family: Arial; }
-  #question-container { position:relative; width:100%; height:100vh; }
-  button { cursor:pointer; }
-  #user-info { display:none; margin-top:20px; }
-  #summary, #job-list { margin-top:20px; }
-  #youtube-placeholder { margin-top:20px; }
-  input { margin:5px 0; padding:5px; font-size:16px; width:200px; }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+#question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+#question-container h2 {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 80%;
+  flex-grow: 1; /* 讓按鈕區域占滿剩餘空間 */
+  justify-content: center; /* 垂直置中按鈕 */
+}
+button {
+  padding: 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
 </style>
 </head>
 <body>
 
-<div id="question-container"></div>
-
-<div id="user-info">
-  <h3>請填寫資料</h3>
-  <input id="name" placeholder="姓名"><br>
-  <input id="phone" placeholder="電話"><br>
-  <button id="submit">送出資料</button>
-</div>
-
-<div id="summary"></div>
-<div id="job-list"></div>
-<div id="youtube-placeholder">
-  <p>影片播放區塊 (待嵌入 YouTube)</p>
+<div id="question-container">
 </div>
 
 <script>
-// ======= 問卷題目設定（14題示範） =======
 const questions = [
   {text:"1. 年齡？", options:["20以下","21-30","31-40","41以上"], key:"age"},
-  {text:"2. 生活圈？", options:["虎尾","斗六","北港","林內","西螺","莿桐","二崙","其他"], key:"circle"},
-  {text:"3. 工作經驗？", options:["無","勞力型","靜態型"], key:"experience"},
-  {text:"4. 勞力型職業？", options:["粗工","其他"], key:"labor"},
-  {text:"5. 靜態型職業？", options:["行政","其他"], key:"static"},
-  {text:"6. 上班時段？", options:["日班","夜班"], key:"shift"},
-  {text:"7. 題目7", options:["選項A","選項B"], key:"q7"},
-  {text:"8. 題目8", options:["選項A","選項B"], key:"q8"},
-  {text:"9. 題目9", options:["選項A","選項B"], key:"q9"},
-  {text:"10. 題目10", options:["選項A","選項B"], key:"q10"},
-  {text:"11. 題目11", options:["選項A","選項B"], key:"q11"},
-  {text:"12. 題目12", options:["選項A","選項B"], key:"q12"},
-  {text:"13. 備註1？", options:["是","否"], key:"extra1"},
-  {text:"14. 備註2？", options:["是","否"], key:"extra2"}
+  {text:"2. 生活圈？", options:["虎尾","斗六","北港","林內","西螺","莿桐","二崙","其他"], key:"circle"}
 ];
 
 let currentQuestion = 0;
 let answers = {};
 
-// ======= 顯示題目 (Flex 排版) =======
-function showQuestionResponsive() {
-  const q = questions[currentQuestion];
+function showQuestion() {
   const container = document.getElementById("question-container");
   container.innerHTML = "";
 
-  // Title 區塊
-  const title = document.createElement("div");
-  title.innerText = q.text;
-  title.style.width = "90%";
-  title.style.margin = "20px auto";
-  title.style.textAlign = "center";
-  title.style.fontSize = "24px";
+  const title = document.createElement("h2");
+  title.innerText = questions[currentQuestion].text;
   container.appendChild(title);
 
-  // 按鈕容器
   const btnContainer = document.createElement("div");
-  btnContainer.style.display = "flex";
-  btnContainer.style.flexDirection = "column";
-  btnContainer.style.alignItems = "center";
-  btnContainer.style.justifyContent = "center";
-  btnContainer.style.gap = "20px"; // 按鈕間距
-  btnContainer.style.marginTop = "30px";
+  btnContainer.className = "button-container";
   container.appendChild(btnContainer);
 
-  q.options.forEach(opt => {
+  questions[currentQuestion].options.forEach(opt => {
     const btn = document.createElement("button");
     btn.innerText = opt;
-    btn.style.width = "80%";
-    btn.style.padding = "20px";
-    btn.style.fontSize = "18px";
     btn.onclick = () => {
-      answers[q.key] = opt;
+      answers[questions[currentQuestion].key] = opt;
       currentQuestion++;
-      if(currentQuestion < questions.length) {
-        showQuestionResponsive();
+      if(currentQuestion < questions.length){
+        showQuestion();
       } else {
-        container.style.display = "none";
-        document.getElementById("user-info").style.display = "block";
-        showSummary();
+        container.innerHTML = "<h2>問卷完成</h2><pre>" + JSON.stringify(answers, null, 2) + "</pre>";
       }
     };
     btnContainer.appendChild(btn);
   });
 }
 
-// ======= 顯示文字總結 =======
-function showSummary() {
-  const summaryDiv = document.getElementById("summary");
-  summaryDiv.innerHTML = `
-    <h3>您的選擇總結：</h3>
-    <p>您是生活在${answers.circle || ""}，
-    以前從事勞力型職業:${answers.labor || ""}，
-    這次想要找靜態型職業:${answers.static || ""}，
-    上班時段希望是${answers.shift || ""}，
-    且希望在同個鄉鎮。</p>
-  `;
-}
-
-// ======= 顯示職缺 (由 Web App 提供) =======
-function showJobListDynamic(jobArray) {
-  const jobDiv = document.getElementById("job-list");
-  if(jobArray.length === 0){
-    jobDiv.innerHTML = "<p>目前沒有相關職缺</p>";
-    return;
-  }
-
-  let html = <h3>以下是您感興趣的 "${answers.static}" 的相關職缺：</h3><ol>;
-  jobArray.slice(0,3).forEach(j => {
-    html += <li>${j.company}: ${j.position}<br>月薪 ${j.salary}, ${j.location}</li>;
-  });
-  html += "</ol>";
-  jobDiv.innerHTML = html;
-}
-
-// ======= 送出資料到 Apps Script =======
-document.getElementById("submit").addEventListener("click", async () => {
-  const data = {
-    ...answers,
-    name: document.getElementById("name").value,
-    phone: document.getElementById("phone").value
-  };
-
-  try {
-    const response = await fetch("你的WebApp URL", {
-      method:"POST",
-      body:JSON.stringify(data),
-      headers:{"Content-Type":"application/json"}
-    });
-    const result = await response.json();
-    if(result.status === "success") {
-      document.getElementById("user-info").innerHTML = "<p>資料已送出成功！</p>";
-      showJobListDynamic(result.data); // 使用 Web App 回傳資料
-    } else {
-      document.getElementById("user-info").innerHTML = "<p>送出失敗：" + result.message + "</p>";
-    }
-  } catch(err) {
-    document.getElementById("user-info").innerHTML = "<p>送出失敗：" + err + "</p>";
-  }
-});
-
-// ======= 啟動問卷 =======
-document.addEventListener("DOMContentLoaded", () => {
-  showQuestionResponsive();
-});
-
-// ======= 畫面大小改變時自動調整按鈕 =======
-window.addEventListener("resize", () => {
-  if(currentQuestion < questions.length) showQuestionResponsive();
-});
+document.addEventListener("DOMContentLoaded", showQuestion);
 </script>
 
 </body>
