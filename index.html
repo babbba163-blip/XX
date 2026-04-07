@@ -72,8 +72,9 @@ function showQuestionResponsive() {
   btnContainer.style.display = "flex";
   btnContainer.style.flexDirection = "column";
   btnContainer.style.alignItems = "center";
-  btnContainer.style.justifyContent = "space-between";
-  btnContainer.style.height = (window.innerHeight - title.offsetHeight - 50) + "px";
+  btnContainer.style.justifyContent = "center";
+  btnContainer.style.gap = "20px"; // 按鈕間距
+  btnContainer.style.marginTop = "30px";
   container.appendChild(btnContainer);
 
   q.options.forEach(opt => {
