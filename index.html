@@ -29,7 +29,7 @@ button { margin: 5px; }
 </div>
 
 <script>
-// ======= 問卷題目設定 =======
+// ======= 問卷題目設定（14題示範） =======
 const questions = [
   {text:"1. 年齡？", options:["20以下","21-30","31-40","41以上"], key:"age"},
   {text:"2. 生活圈？", options:["虎尾","斗六","北港","林內","西螺","莿桐","二崙","其他"], key:"circle"},
@@ -37,7 +37,12 @@ const questions = [
   {text:"4. 勞力型職業？", options:["粗工","其他"], key:"labor"},
   {text:"5. 靜態型職業？", options:["行政","其他"], key:"static"},
   {text:"6. 上班時段？", options:["日班","夜班"], key:"shift"},
-  // ... 7~14題省略，可照上面格式補
+  {text:"7. 題目7", options:["選項A","選項B"], key:"q7"},
+  {text:"8. 題目8", options:["選項A","選項B"], key:"q8"},
+  {text:"9. 題目9", options:["選項A","選項B"], key:"q9"},
+  {text:"10. 題目10", options:["選項A","選項B"], key:"q10"},
+  {text:"11. 題目11", options:["選項A","選項B"], key:"q11"},
+  {text:"12. 題目12", options:["選項A","選項B"], key:"q12"},
   {text:"13. 備註1？", options:["是","否"], key:"extra1"},
   {text:"14. 備註2？", options:["是","否"], key:"extra2"}
 ];
@@ -61,7 +66,6 @@ function showQuestion() {
       if(currentQuestion < questions.length) {
         showQuestion();
       } else {
-        // 題目答完，顯示填寫姓名電話表單
         document.getElementById("question-container").style.display = "none";
         document.getElementById("user-info").style.display = "block";
         showSummary();
@@ -76,7 +80,8 @@ function showSummary() {
   const summaryDiv = document.getElementById("summary");
   summaryDiv.innerHTML = `
     <h3>您的選擇總結：</h3>
-    <p>您是生活在${answers.circle || ""}，以前從事勞力型職業:${answers.labor || ""}，
+    <p>您是生活在${answers.circle || ""}，
+    以前從事勞力型職業:${answers.labor || ""}，
     這次想要找靜態型職業:${answers.static || ""}，
     上班時段希望是${answers.shift || ""}，
     且希望在同個鄉鎮。</p>
@@ -87,14 +92,13 @@ function showSummary() {
 const jobData = [
   {category:"行政", company:"魚鄉有限公司", position:"行政人員", salary:"30000~32000", location:"麥寮鄉"},
   {category:"行政", company:"恣肆有限公司", position:"行政助理", salary:"29500~34000", location:"台西鄉"},
-  {category:"勞力", company:"大力工程", position:"工地助手", salary:"28000~30000", location:"虎尾鎮"},
-  // 可新增更多資料列
+  {category:"勞力", company:"大力工程", position:"工地助手", salary:"28000~30000", location:"虎尾鎮"}
 ];
 
 // ======= 顯示對應職缺 =======
 function showJobList() {
   const jobDiv = document.getElementById("job-list");
-  const category = answers.static; // 根據使用者選擇分類抓取資料
+  const category = answers.static;
   const filtered = jobData.filter(j => j.category === category).slice(0,3);
 
   if(filtered.length === 0) {
@@ -102,9 +106,9 @@ function showJobList() {
     return;
   }
 
-  let html = <h3>以下是您感興趣的 "${category}" 的相關職缺：</h3><ol>;
+  let html = `<h3>以下是您感興趣的 "${category}" 的相關職缺：</h3><ol>`;
   filtered.forEach(j => {
-    html += <li>${j.company}: ${j.position}<br>月薪 ${j.salary}, ${j.location}</li>;
+    html += `<li>${j.company}: ${j.position}<br>月薪 ${j.salary}, ${j.location}</li>`;
   });
   html += "</ol>";
   jobDiv.innerHTML = html;
@@ -137,7 +141,10 @@ document.getElementById("submit").addEventListener("click", async () => {
 });
 
 // ======= 啟動問卷 =======
-showQuestion();
+document.addEventListener("DOMContentLoaded", () => {
+  showQuestion();
+});
 </script>
+
 </body>
 </html>
